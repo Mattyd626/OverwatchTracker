@@ -1,11 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+/* Local font-face for Cookiemonster TTF placed in src/assets/ */
+@font-face {
+  font-family: 'Cookiemonster';
+  src: url('./assets/Cookiemonster-gv11.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Primary display font: local Cookiemonster TTF with fallbacks */
+  font-family: "Cookiemonster";
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --text-color: #7F55B1;
+  --bg-color: #FFE9F0;
+  color: var(--text-color);
+  background-color: var(--bg-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,22 +27,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: flex-start;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
-}
+  color: var(--text-color);
+  font-size: 18px;
+  z-index: -2;
+} 
 
 h1 {
   font-size: 3.2em;
@@ -56,11 +65,8 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
+    --text-color: #FFE1E0;
+    --bg-color: #ffffff;
   }
   button {
     background-color: #f9f9f9;

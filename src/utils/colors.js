@@ -1,0 +1,1 @@
+export const DEFAULT_BACKGROUND = "#FFE1E0";
