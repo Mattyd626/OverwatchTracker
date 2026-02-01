@@ -13,12 +13,15 @@ import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { CONTROL, ESCORT, FLASHPOINT, HYBRID, PUSH } from "../utils/maps";
 import { TANK, DAMAGE, SUPPORT } from "../utils/heroes";
-import HeroSelector from "../components/HeroSelector";
+import HeroSelector from "./HeroSelector";
 import MapSelector from "./MapSelector";
 import RankSelector from "./RankSelector";
 
-export default function NewGameDialog({ open, onClose, onSave }) {
-  const [form, setForm] = useState({
+export default function EditGameDialog({ games, open, onClose, onSave }) {
+  const [form, setForm] = useState(
+    typeof open === "string" ?
+    (games.filter((g) => g.id === open)?.[0]): 
+    {
     result: true,
     lowestRank: {rank: "", division: 0},
     highestRank: {rank: "", division: 0},
@@ -28,14 +31,18 @@ export default function NewGameDialog({ open, onClose, onSave }) {
   });
 
   useEffect(() => {
-    setForm({
-        result: true,
-        lowestRank: {rank: null, division: null},
-        highestRank: {rank: null, division: null},
-        heroBans: [],
-        map: null,
-        duration: null,
-    });
+    if (typeof open === "string"){
+      setForm(games.filter((g) => g.id === open)?.[0]);
+    }else{
+      setForm({
+          result: true,
+          lowestRank: {rank: null, division: null},
+          highestRank: {rank: null, division: null},
+          heroBans: [],
+          map: null,
+          duration: null,
+      });
+    }
   }, [setForm, open])
 
   function handleChange(field, value) {
@@ -43,11 +50,15 @@ export default function NewGameDialog({ open, onClose, onSave }) {
   }
 
   function handleSubmit() {
-    onSave({
-      ...form,
-      id: uuid(),
-      time: new Date().toISOString(),
-    });
+    if(typeof open === "boolean"){
+      onSave({
+        ...form,
+        id: uuid(),
+        time: new Date().toISOString(),
+      });
+    }else{
+      onSave(form);
+    }
     onClose();
   }
 
@@ -67,7 +78,7 @@ export default function NewGameDialog({ open, onClose, onSave }) {
         borderBottom: 5,
         borderStyle: "solid",
         borderColor: "divider"
-      }}>How'd the game go twin..</DialogTitle>
+      }}>Edit the game twin..</DialogTitle>
       <DialogContent
         sx={{
             maxHeight: '90vh',          // keep it scrollable

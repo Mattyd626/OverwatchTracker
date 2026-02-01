@@ -1,5 +1,6 @@
 import { Card, CardContent, Box, IconButton, Stack, Typography, CardMedia } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { TANK, DAMAGE, SUPPORT } from "../utils/heroes";
 import { CONTROL, ESCORT, FLASHPOINT, HYBRID, PUSH } from "../utils/maps";
 import { saveGames } from "../utils/storage";
@@ -18,7 +19,7 @@ const heroes = {
     ...SUPPORT
 };
 
-export default function GameCard({ game, games, setGames }) {
+export default function GameCard({ game, games, setGames, setOpen}) {
   return (
     <Card sx={{ 
         width: "500px",
@@ -31,18 +32,31 @@ export default function GameCard({ game, games, setGames }) {
             <Typography variant="h6">
             {game.result ? "🏆 Victory" : "🤕 Defeat"}
             </Typography>
-            <IconButton
-                onClick={() => {
-                    setGames(games.filter((currentGame) => currentGame != game))
-                    saveGames(games.filter((currentGame) => currentGame != game));
-                }}
-                sx={{
-                    color: "#ec669a",
-                    "&:hover": { backgroundColor: "rgba(255,156,163,0.12)" } // subtle tint on hover
-                }}
-            >
-                <DeleteIcon />
-            </IconButton>
+            <Stack spacing={2} direction={"row"}>
+                <IconButton
+                    onClick={() => {
+                        setOpen(game.id);
+                    }}
+                    sx={{
+                        color: "#ec669a",
+                        "&:hover": { backgroundColor: "rgba(255,156,163,0.12)" }
+                    }}
+                >
+                    <EditIcon />
+                </IconButton>
+                <IconButton
+                    onClick={() => {
+                        setGames(games.filter((currentGame) => currentGame != game))
+                        saveGames(games.filter((currentGame) => currentGame != game));
+                    }}
+                    sx={{
+                        color: "#ec669a",
+                        "&:hover": { backgroundColor: "rgba(255,156,163,0.12)" }
+                    }}
+                >
+                    <DeleteIcon />
+                </IconButton>
+            </Stack>
         </Stack>
         <Typography>Rank: {game?.lowestRank?.rank + " - " + game?.lowestRank?.division + "  ,  " + game?.highestRank?.rank + " - " + game?.highestRank?.division}</Typography>
         <Typography>Map: {game.map}</Typography>

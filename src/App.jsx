@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Container, Stack, Box, Typography } from "@mui/material";
 import { loadGames, saveGames } from "./utils/storage";
 import GameCard from "./components/GameCard";
-import NewGameDialog from "./components/NewGameDialog";
+import EditGameDialog from "./components/EditGameDialog";
 import FlowerBackground from "./components/FlowerBackground";
 import * as XLSX from 'xlsx';
 
@@ -31,7 +31,14 @@ export default function App() {
   }, []);
 
   function addGame(game) {
-    const updated = [game, ...games];
+    let updated = [];
+
+    if (games.filter((g) => g.id === game.id).length > 0){
+      updated = games.map((g) => g.id == game.id ? game : g);
+    }else{
+      updated = [game, ...games];
+    }
+
     setGames(updated);
     saveGames(updated);
   }
@@ -60,18 +67,16 @@ export default function App() {
               New Game
             </Button>
           </Stack>
-
-          {/* Cards */}
           <Stack spacing={2}>
             {games.map(game => (
-              <GameCard key={game.id} game={game} games={games} setGames={setGames}/>
+              <GameCard key={game.id} game={game} games={games} setGames={setGames} setOpen={setOpen}/>
             ))}
           </Stack>
-
-          <NewGameDialog
+          <EditGameDialog
             open={open}
             onClose={() => setOpen(false)}
             onSave={addGame}
+            games={games}
           />
         </Stack>
       </Stack>
