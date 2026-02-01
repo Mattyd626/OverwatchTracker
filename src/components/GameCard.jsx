@@ -22,7 +22,7 @@ export default function GameCard({ game, games, setGames }) {
   return (
     <Card sx={{ 
         width: "500px",
-        height: "280px", 
+        height: "17rem", 
         borderRadius: "10px",
         borderStyle: "invisible",
     }}>

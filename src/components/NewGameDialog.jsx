@@ -89,7 +89,7 @@ export default function NewGameDialog({ open, onClose, onSave }) {
       >
         <Stack spacing={5} mt={1}>
             <Stack direction="row" alignItems="center" spacing={2} justifyContent={"center"}>
-                <Typography sx={{width: "200px"}}>{form.result ? "Did we win? (˶ᵔ ᵕ ᵔ˶)" : "Did we win? (╥﹏╥)"}</Typography>
+                <Typography sx={{width: "15rem"}}>{form.result ? "Did we win? (˶ᵔ ᵕ ᵔ˶)" : "Did we win? (╥﹏╥)"}</Typography>
                 <Checkbox 
                     checked={form?.result ?? true}
                     onChange={(e) => handleChange("result", e.target.checked)} 
