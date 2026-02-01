@@ -71,14 +71,14 @@ export default function EditGameDialog({ games, open, onClose, onSave }) {
   }
 
   const handleMapSelect = (name) => (handleChange("map",form.map == name ? null : name));
-
+  
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
       <DialogTitle sx={{
         borderBottom: 5,
         borderStyle: "solid",
         borderColor: "divider"
-      }}>Edit the game twin..</DialogTitle>
+      }}>{typeof open === "boolean" ? "How'd the game go twin.." : "Edit the game twin.."}</DialogTitle>
       <DialogContent
         sx={{
             maxHeight: '90vh',          // keep it scrollable
