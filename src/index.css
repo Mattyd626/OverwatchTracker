@@ -27,6 +27,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  user-select: none;
+}
+img, a {
+  -webkit-user-drag: none;
+}
+
 body {
   margin: 0;
   display: flex;
